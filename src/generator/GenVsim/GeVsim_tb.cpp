@@ -41,7 +41,7 @@ GeVsim::GeVsim(string design, ir::IrManus* ir_in, string fabric_path, string out
 		}
 	}
 	
-	_max_scheduled_cycle = 1000;
+	_max_scheduled_cycle = 100000;
 	
 	
 }
@@ -145,7 +145,7 @@ void GeVsim::gen_tb(){
 	for(int i=0; i<_row; i++){
 		for(int j=0; j<_col; j++){
 			bool flag_has_var=false;
-			vector<int> v(32, 0);
+			vector<int> v(_refi_total_entry, 0);
 			for(int k=0; k<_refi_total_entry; k++){
 				string name;
 				int index;
@@ -172,9 +172,9 @@ void GeVsim::gen_tb(){
 						str=", ";
 					}
 					str += "(\""+sa+"\", \""+sr+"\", \""+sc+"\", X\"";
-					for(int n=m*16; n<(m+1)*16; n++){
+					for(int n=0; n<16; n++){
 						std::ostringstream vstream;
-						vstream << right << setfill('0') << setw(4) << hex << v[n];
+						vstream << right << setfill('0') << setw(4) << hex << v[(m+1)*16 -1 - n];
 						str += vstream.str();
 					}
 					str += "\")";

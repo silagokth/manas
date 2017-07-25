@@ -107,6 +107,8 @@ segment:
 	}
 	| CODE_SEG NEWLINE instructions{
 	}
+	| NEWLINE{
+	}
 	;
 
 instructions:

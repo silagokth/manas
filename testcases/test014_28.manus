@@ -1,0 +1,87 @@
+/*
+
+% loop statement testcase (dynamic)
+
+% Features:
+%  - Three level nested loops
+%  - Loop boundary with an increment bigger than one
+
+HEIGHT = 4;
+WIDTH = 4;
+K_HEIGHT = HEIGHT / 2;
+K_WIDTH = WIDTH / 2;
+
+inp = [1:16]; %! RFILE<> [0,0]
+kernel = [1 2 3 4]; %! RFILE<> [1,0]
+acc = zeros(1,1); %! RFILE<> [0,1]
+temp = zeros(1,1); %! RFILE<> [0,1]
+
+for col = 1 : 2 : WIDTH-1
+	for i = 1 : K_HEIGHT
+		for j = 1 : K_WIDTH
+			temp(1) = inp((i-1)*WIDTH + col + j - 1) .* kernel((i-1)*K_WIDTH + j); %! DPU[0,0]
+			acc(1) = acc(1) + temp(1); %! DPU[0,1]
+		end
+	end
+end
+
+*/
+
+.DATA
+$inp FULL_DISTR [<0,0>] [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
+$kernel FULL_DISTR [<1,0>] [1,2,3,4]
+$acc FULL_DISTR [<0,1>] zeros(1)
+$temp FULL_DISTR [<0,1>] zeros(1)
+
+.CODE
+
+CELL <0,0>
+
+RACCU 3 0 0 0 0 0
+LOOP_HEADER 0 1 0 2
+SWB REFI 0 3 LATA 0 0
+SWB REFI 1 3 LATA 0 2
+REFI_1 3 2 1 0 0 1 0 1
+REFI_2 0 1 0 0 9 0 1 4
+REFI_3 0 9 0 3 0 0 0 0 0 0
+DPU 2 0 3 3 1 0 0 0
+DELAY 0 29
+RACCU 3 1 0 0 2 0
+DELAY 0 7
+LOOP_TAIL 2 1 0
+
+CELL <0,1>
+
+DELAY 0 0
+LOOP_HEADER 0 1 0 2
+SWB LATA 0 1 REFI 2 1
+REFI_1 1 2 0 1 0 1 0 4
+REFI_2 0 0 0 0 9 0 1 0
+REFI_3 0 9 0 3 0 0 0 0 0 0
+SWB REFI 2 3 LATA 2 2
+SWB REFI 2 2 LATA 2 3
+DELAY 0 0
+SWB LATA 2 0 REFI 2 0
+REFI_1 3 2 0 0 0 1 0 5
+REFI_2 0 0 0 0 9 0 1 0
+REFI_3 0 9 0 3 0 0 0 0 0 0
+REFI_1 2 2 0 1 0 1 0 4
+REFI_2 0 0 0 0 9 0 1 0
+REFI_3 0 9 0 3 0 0 0 0 0 0
+DELAY 0 2
+DPU 10 0 3 3 1 0 0 0
+REFI_1 0 2 0 0 0 1 0 0
+REFI_2 0 0 0 0 9 0 1 0
+REFI_3 0 9 0 3 0 0 0 0 0 0
+DELAY 0 29
+LOOP_TAIL 2 1 0
+
+CELL <1,0>
+
+DELAY 0 0
+LOOP_HEADER 0 1 0 2
+REFI_1 3 2 0 0 0 1 0 3
+REFI_2 0 1 0 0 9 0 1 2
+REFI_3 0 9 0 3 0 0 0 0 0 0
+DELAY 0 41
+LOOP_TAIL 2 1 0

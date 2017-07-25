@@ -1,0 +1,26 @@
+/*
+
+% MATLAB CODE
+
+A = [3 : 12]; %! RFILE<> [0,0]
+B = [5 : 14]; %! RFILE<> [0,0]
+C = [0];      %! RFILE<> [0,0]
+
+C(1) = A(1) + B(1); %! DPU [0,0]
+
+*/
+
+.DATA
+$A EVEN_DISTR [<0,0>] [3,4,5,6,7,8,9,10,11,12]
+$B EVEN_DISTR [<0,0>] [5,6,7,8,9,10,11,12,13,14]
+$C FULL_DISTR [<0,0>] [0]
+
+.CODE
+CELL <0,0>
+SWB REFI 0 3 LATA 0 2
+SWB REFI 0 2 LATA 0 3
+SWB LATA 0 0 REFI 0 1
+REFI_1 3 0 0 0 0 0 0 2
+REFI_1 2 0 0 10 0 0 0 1
+DPU 10 0 3 3 1 0 0 0
+REFI_1 1 0 0 20 0 0 0 0
