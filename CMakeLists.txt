@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.9)
-project(vesyla)
+project(manus)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -9,14 +9,14 @@ set(CMAKE_AUTOMOC ON)
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # The project version number.
-set(VERSION_MAJOR 1 CACHE STRING "Project major version number.")
-set(VERSION_MINOR 0 CACHE STRING "Project minor version number.")
+set(VERSION_MAJOR 0 CACHE STRING "Project major version number.")
+set(VERSION_MINOR 1 CACHE STRING "Project minor version number.")
 set(VERSION_PATCH 0 CACHE STRING "Project patch version number.")
 mark_as_advanced(VERSION_MAJOR VERSION_MINOR VERSION_PATCH)
 
 find_package(BISON)
 find_package(FLEX)
-find_package(TCL REQUIRED)
+#find_package(TCL REQUIRED)
 find_package(Boost COMPONENTS regex system filesystem program_options log unit_test_framework REQUIRED)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
@@ -40,5 +40,5 @@ ADD_FLEX_BISON_DEPENDENCY(ParManusScanner ParManusParser)
 add_library(parser SHARED ${SOURCES_PARSER} ${BISON_ParManusParser_OUTPUTS} ${FLEX_ParManusScanner_OUTPUTS})
 add_library(ir SHARED ${SOURCES_IR})
 add_library(generator SHARED ${SOURCES_GENERATOR})
-add_executable(vesyla ${SOURCES_VESYLA})
-target_link_libraries(vesyla parser ir generator ${Boost_LIBRARIES} ${PROJECT_LINK_LIBS})
+add_executable(manus ${SOURCES_VESYLA})
+target_link_libraries(manus parser ir generator ${Boost_LIBRARIES} ${PROJECT_LINK_LIBS})
