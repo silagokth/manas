@@ -6,7 +6,8 @@
 
 using namespace std;
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 enum DistrType{
 	DISTR_FULL,
@@ -26,6 +27,6 @@ public:
 };
 
 }
-
+}
 
 #endif // __VESYLA_IR_IR_MANUS_VAR_HPP__

@@ -3,7 +3,8 @@
 
 #include "IrManusBase.hpp"
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 class IrManusRefi3 : public IrManusBase{
 public:
@@ -19,6 +20,7 @@ public:
 	int dimarch_mode;
 };
 
+}
 }
 
 #endif // __VESYLA_IR_IR_MANUS_REFI3_HPP__

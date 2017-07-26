@@ -1,6 +1,7 @@
 #include "generator/util/GeWriter.hpp"
 
-namespace vesyla::generator{
+namespace vesyla{
+namespace generator{
 
 GeWriter::GeWriter(string filename){
 	_f.close();
@@ -35,4 +36,5 @@ int GeWriter::depth(){
 	return _depth;
 }
 
+}
 }

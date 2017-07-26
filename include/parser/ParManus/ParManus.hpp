@@ -7,7 +7,8 @@
 
 using namespace vesyla::ir;
 
-namespace vesyla::parser{
+namespace vesyla{
+namespace parser{
 
 class ParManus{
 
@@ -16,6 +17,7 @@ public:
 	void run(string filename);
 };
 
+}
 }
 
 #endif // __VESYLA_PARSER_PAR_MANUS_HPP__

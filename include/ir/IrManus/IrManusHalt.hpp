@@ -3,12 +3,14 @@
 
 #include "IrManusBase.hpp"
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 class IrManusHalt : public IrManusBase{
 public:
 };
 
+}
 }
 
 #endif // __VESYLA_IR_IR_MANUS_HALT_HPP__

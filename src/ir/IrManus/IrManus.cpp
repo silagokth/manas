@@ -1,6 +1,7 @@
 #include "ir/IrManus/IrManus.hpp"
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 void IrManus::reset(int num_row, int num_col, int refi_total_entry){
 	if(num_row<=0 || num_col<=0 || refi_total_entry<=0){
@@ -613,4 +614,5 @@ void IrManus::dump(){
 	}
 }
 
+}
 }

@@ -2,7 +2,8 @@
 #define __VESYLA_IR_IR_MANUS_SWB_HPP__
 
 #include "IrManusBase.hpp"
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 class IrManusSwb : public IrManusBase{
 public:
 	int from_block;
@@ -12,5 +13,6 @@ public:
 	int to_address;
 	int to_port;
 };
+}
 }
 #endif // __VESYLA_IR_IR_MANUS_SWB_HPP__

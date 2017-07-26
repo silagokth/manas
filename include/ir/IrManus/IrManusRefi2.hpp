@@ -3,7 +3,8 @@
 
 #include "IrManusBase.hpp"
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 class IrManusRefi2 : public IrManusBase{
 public:
@@ -16,6 +17,7 @@ public:
 	int no_of_reps;
 	int rpt_step_value;
 };
+}
 }
 
 #endif // __VESYLA_IR_IR_MANUS_REFI2_HPP__

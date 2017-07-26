@@ -1,6 +1,7 @@
 #include "ir/IrManus/IrManusBase.hpp"
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 string instr_type_to_str(InstrType t){
 	string s;
@@ -25,4 +26,5 @@ string instr_type_to_str(InstrType t){
 	return s;
 }
 
+}
 }

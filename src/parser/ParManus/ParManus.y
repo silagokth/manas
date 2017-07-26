@@ -157,31 +157,36 @@ instruction:
 
 instr_cell:
 	CELL coordinate NEWLINE{
-		BOOST_LOG_TRIVIAL(debug) << coord_x << "............." << coord_y;
 		coord_x = (*(static_cast<vector<int>*>($2)))[0];
 		coord_y = (*(static_cast<vector<int>*>($2)))[1];
-		//delete $2;
+		delete $2;
 	}
 	;
 
 instr_dpu:
 	DPU number number number number number number number number NEWLINE{
-		BOOST_LOG_TRIVIAL(debug) << $2 <<","<< $3<<","<< $4<<","<<$5<<","<<$6<<","<<$7<<","<<$8<<","<<$9;
 		ir_ptr->create_instr_dpu(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9);
+	}
+	|DPU number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_dpu(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16);
 	}
 	;
 
 instr_refi1:
 	REFI1 number number number number number number number number NEWLINE{
-		BOOST_LOG_TRIVIAL(debug) << coord_x <<","<< coord_y << ","<< $2 <<","<< $3<<","<< $4<<","<<$5<<","<<$6<<","<<$7<<","<<$8<<","<<$9;
 		ir_ptr->create_instr_refi1(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9);
+	}
+	|REFI1 number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_refi1(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16);
 	}
 	;
 
 instr_refi2:
 	REFI2 number number number number number number number number NEWLINE{
-	BOOST_LOG_TRIVIAL(debug) << coord_x <<","<< coord_y << ","<< $2 <<","<< $3<<","<< $4<<","<<$5<<","<<$6<<","<<$7<<","<<$8<<","<<$9;
 		ir_ptr->create_instr_refi2(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9);
+	}
+	|REFI2 number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_refi2(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16);
 	}
 	;
 
@@ -189,11 +194,17 @@ instr_refi3:
 	REFI3 number number number number number number number number number number NEWLINE{
 		ir_ptr->create_instr_refi3(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);
 	}
+	|REFI3 number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_refi3(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16, $18, $20);
+	}
 	;
 
 instr_delay:
 	DELAY number number NEWLINE{
 		ir_ptr->create_instr_delay(coord_x, coord_y, $2, $3);
+	}
+	|DELAY number COMMA number NEWLINE{
+		ir_ptr->create_instr_delay(coord_x, coord_y, $2, $4);
 	}
 	;
 
@@ -201,11 +212,17 @@ instr_raccu:
 	RACCU number number number number number number NEWLINE{
 		ir_ptr->create_instr_raccu(coord_x, coord_y, $2, $3, $4, $5, $6, $7);
 	}
+	|RACCU number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_raccu(coord_x, coord_y, $2, $4, $6, $8, $10, $12);
+	}
 	;
 
 instr_loopheader:
 	LOOPHEADER number number number number NEWLINE{
 		ir_ptr->create_instr_loopheader(coord_x, coord_y, $2, $3, $4, $5);
+	}
+	|LOOPHEADER number COMMA number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_loopheader(coord_x, coord_y, $2, $4, $6, $8);
 	}
 	;
 
@@ -213,17 +230,26 @@ instr_looptail:
 	LOOPTAIL number number number NEWLINE{
 		ir_ptr->create_instr_looptail(coord_x, coord_y, $2, $3, $4);
 	}
+	|LOOPTAIL number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_looptail(coord_x, coord_y, $2, $4, $6);
+	}
 	;
 
 instr_swb:
 	SWB number number number number number number NEWLINE{
 		ir_ptr->create_instr_swb(coord_x, coord_y, $2, $3, $4, $5, $6, $7);
 	}
+	|SWB number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_swb(coord_x, coord_y, $2, $4, $6, $8, $10, $12);
+	}
 	;
 
 instr_branch:
 	BRANCH number number NEWLINE{
 		ir_ptr->create_instr_branch(coord_x, coord_y, $2, $3);
+	}
+	|BRANCH number COMMA number NEWLINE{
+		ir_ptr->create_instr_branch(coord_x, coord_y, $2, $4);
 	}
 	;
 
@@ -237,17 +263,26 @@ instr_sramread:
 	SRAMREAD number number number number number number number number number number number number number number number number number NEWLINE{
 		ir_ptr->create_instr_sramread(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18);
 	}
+	|SRAMREAD number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_sramread(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16, $18, $20, $22, $24, $26, $28, $30, $32, $34);
+	}
 	;
 
 instr_sramwrite:
 	SRAMWRITE number number number number number number number number number number number number number number number number number NEWLINE{
 		ir_ptr->create_instr_sramwrite(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18);
 	}
+	|SRAMWRITE number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_sramwrite(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16, $18, $20, $22, $24, $26, $28, $30, $32, $34);
+	}
 	;
 
 instr_route:
 	ROUTE number number number number number number number number NEWLINE{
 		ir_ptr->create_instr_route(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9);
+	}
+	|ROUTE number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
+		ir_ptr->create_instr_route(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16);
 	}
 	;
 

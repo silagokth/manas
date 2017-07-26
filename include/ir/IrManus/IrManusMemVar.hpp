@@ -6,7 +6,8 @@
 
 using namespace std;
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 string distr_type_to_str(DistrType t);
 
@@ -19,6 +20,7 @@ public:
 	vector<vector<int>> value;
 };
 
+}
 }
 
 

@@ -3,7 +3,8 @@
 
 #include "IrManusBase.hpp"
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 class IrManusRefi1 : public IrManusBase{
 public:
@@ -16,6 +17,7 @@ public:
 	 int initial_delay_sd;
 	 int initial_delay;
 };
+}
 }
 
 #endif // __VESYLA_IR_IR_MANUS_REFI1_HPP__

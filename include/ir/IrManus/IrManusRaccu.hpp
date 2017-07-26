@@ -3,7 +3,8 @@
 
 #include "IrManusBase.hpp"
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 class IrManusRaccu : public IrManusBase{
 public:
@@ -15,6 +16,7 @@ public:
 	int raccu_result_addrs;
 };
 
+}
 }
 
 #endif // __VESYLA_IR_IR_MANUS_RACCU_HPP__

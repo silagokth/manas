@@ -6,7 +6,8 @@
 
 using namespace std;
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 enum InstrType{
 	INSTR_DPU,
@@ -34,6 +35,7 @@ public:
 	InstrType instr_type;
 };
 
+}
 }
 
 #endif // __VESYLA_IR_IR_MANUS_BASE_HPP__

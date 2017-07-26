@@ -3,7 +3,8 @@
 
 #include "IrManusBase.hpp"
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 class IrManusLooptail : public IrManusBase{
 public:
@@ -12,6 +13,7 @@ public:
 	int index_raccu_addr;
 };
 
+}
 }
 
 #endif // __VESYLA_IR_IR_MANUS_LOOPTAIL_HPP__

@@ -7,7 +7,8 @@
 
 using namespace std;
 
-namespace vesyla::generator{
+namespace vesyla{
+namespace generator{
 
 class GeWriter{
 public:
@@ -24,6 +25,7 @@ private:
 
 };
 
+}
 }
 
 

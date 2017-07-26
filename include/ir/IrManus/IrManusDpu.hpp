@@ -3,7 +3,8 @@
 
 #include "IrManusBase.hpp"
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 class IrManusDpu : public IrManusBase{
 public:
@@ -18,5 +19,6 @@ public:
 	int process_inout;
 };
 
+}
 }
 #endif // __VESYLA_IR_IR_MANUS_DPU_HPP__

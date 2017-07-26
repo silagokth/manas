@@ -26,7 +26,8 @@
 
 using namespace std;
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 class IrManus{
 public:
@@ -74,6 +75,7 @@ private:
 	int _col;
 };
 
+}
 }
 
 #endif // __VESYLA_IR_IR_MANUS_HPP__

@@ -3,7 +3,8 @@
 
 #include "IrManusBase.hpp"
 
-namespace vesyla::ir{
+namespace vesyla{
+namespace ir{
 
 class IrManusSramread : public IrManusBase{
 public:
@@ -25,6 +26,7 @@ public:
 	int sram_loop1_increment_sd;
 	int sram_loop2_increment_sd;
 };
+}
 }
 
 #endif // __VESYLA_IR_IR_MANUS_SRAMREAD_HPP__

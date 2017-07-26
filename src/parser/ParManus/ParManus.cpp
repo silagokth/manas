@@ -4,7 +4,8 @@ extern FILE *yyin;
 extern int yydebug;
 extern IrManus* ir_ptr;
 
-namespace vesyla::parser{
+namespace vesyla{
+namespace parser{
 
 ParManus::ParManus(int row_num, int col_num, int refi_total_entry, IrManus* ir_out){
 	ir_ptr = ir_out;
@@ -26,4 +27,5 @@ void ParManus::run(string filename){
 }
 
 
+}
 }

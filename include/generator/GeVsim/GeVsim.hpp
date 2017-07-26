@@ -13,7 +13,8 @@
 using namespace vesyla::ir;
 using namespace std;
 
-namespace vesyla::generator{
+namespace vesyla{
+namespace generator{
 
 class GeVsim{
 public:
@@ -40,6 +41,7 @@ private:
 	int _max_scheduled_cycle;
 };
 
+}
 }
 
 #endif // __VESYLA_GENERATOR_GE_VSIM_HPP__
