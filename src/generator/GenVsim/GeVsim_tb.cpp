@@ -1,6 +1,7 @@
 #include "generator/GeVsim/GeVsim.hpp"
 
-namespace vesyla::generator{
+namespace vesyla{
+namespace generator{
 
 GeVsim::GeVsim(string design, ir::IrManus* ir_in, string fabric_path, string output_dir){
 	_design = design;
@@ -1166,5 +1167,5 @@ void GeVsim::gen_script(){
 	w.write_line("quit");
 }
 
-
+}
 }
