@@ -28,19 +28,35 @@ start a code segment
 
 ````$variable_name distribution_type [<row0, col0>, <row1, col1>, ...] [element0, element1, ...]````
 
-Variable name should always be led by a __$__ symbol.
+or
+
+````$variable_name distribution_type [<row0, col0>, <row1, col1>, ...] ZEROS(number_of_element)````
+
+or
+
+````$variable_name distribution_type [<row0, col0>, <row1, col1>, ...] ONES(number_of_element)````
+
+Variable name should always be led by a dollar (__$__) symbol. The first symbol after dollar (__$__) should only be underscore ( **\_** ) or regular latin letter (a-z, A-Z). The following symbol can be underscore ( **\_** ), regular latin letter (a-z, A-Z) as well as number (0-9).
 
 Distribution type can be either __FULL\_DISTR__ or __EVEN\_DIRSR__.
 
 The third argument is a list of DRRA cells.
 
-The last argument is the initial value of each element inside the variable.
+The last argument is the list of initial value of each element inside the variable.
 
-All variable are considered as a 1-D array.
+All variable are considered as a 1-D array in register file.
 
 ### Define instructions
 
 ````instruction_name arg0 arg1 ...````
+
+or
+
+````instruction_name arg0, arg1, ...````
+
+or
+
+````instruction_name (arg0, arg1, ...)````
 
 instruction name can be __DPU__, __REFI1__, __REFI2__, ... For the full list and their detailed
 argument description, please read the documentation of Vesyla.
@@ -49,9 +65,9 @@ argument description, please read the documentation of Vesyla.
 
 ````
 .DATA
-$A EVEN_DISTR [<0,0>] ONES(10)
-$B EVEN_DISTR [<0,0>] ONES(10)
-$C FULL_DISTR [<0,0>] ONES(1)
+$A EVEN_DISTR [<0,0>] [3,4,5,6,7,8,9,10,11,12]
+$B EVEN_DISTR [<0,0>] [5,6,7,8,9,10,11,12,13,14]
+$C FULL_DISTR [<0,0>] [0]
 
 .CODE
 CELL <0,0>
@@ -64,3 +80,10 @@ DPU 10 0 3 3 1 0 0 0
 REFI_1 1 0 0 20 0 0 0 0
 
 ````
+
+## Limitations
+- Doesn't support fixed-point representation, you need to convert fixed-point to integer format manually.
+- Doesn't support DiMarch variable declaration.
+- Doesn't support Input and Output variable type, only Temporary variable type is valid.
+- No static time model analysis. The execution cycle is by default set to 1000.
+
