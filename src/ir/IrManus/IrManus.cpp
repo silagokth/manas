@@ -36,6 +36,20 @@ shared_ptr<IrManusDpu> IrManus::create_instr_dpu(
 	int process_inout
 	){
 	
+	if(
+		dpu_mode<0 || dpu_mode>12 ||
+		dpu_saturation<0 || dpu_saturation>3 ||
+		dpu_out1<0 || dpu_out1>3 ||
+		dpu_out2<0 || dpu_out2>3 ||
+		dpu_acc_clear_rst<0 || dpu_acc_clear_rst >1 ||
+		dpu_acc_clear_sd<0 || dpu_acc_clear_sd >1 ||
+		dpu_acc_clear<0 || dpu_acc_clear >255 ||
+		process_inout<0 || process_inout>3
+	){
+		BOOST_LOG_TRIVIAL(fatal) << "DPU instruction parameter value error!";
+		return NULL;
+	}
+	
 	shared_ptr<IrManusDpu> p = make_shared<IrManusDpu>();
 	p->instr_type = INSTR_DPU;
 	p->dpu_mode = dpu_mode;
@@ -55,7 +69,21 @@ shared_ptr<IrManusDpu> IrManus::create_instr_dpu(
 shared_ptr<IrManusRefi1> IrManus::create_instr_refi1(int row, int col,
 	int reg_file_port, int subseq_instrs, int start_addrs_sd, int start_addrs,
 	int no_of_addrs_sd, int no_of_addrs, int initial_delay_sd, int initial_delay){
-
+	
+	if(
+		reg_file_port<0 || reg_file_port>3 ||
+		subseq_instrs<0 || subseq_instrs>3 ||
+		start_addrs_sd<0 || start_addrs_sd>1 ||
+		start_addrs<0 || start_addrs>63 ||
+		no_of_addrs_sd<0 || no_of_addrs_sd >1 ||
+		no_of_addrs<0 || no_of_addrs >63 ||
+		initial_delay_sd<0 || initial_delay_sd>1 ||
+		initial_delay<0 || initial_delay>15
+	){
+		BOOST_LOG_TRIVIAL(fatal) << "REFI1 instruction parameter value error!";
+		return NULL;
+	}
+	
 	shared_ptr<IrManusRefi1> p = make_shared<IrManusRefi1>();
 	p->instr_type = INSTR_REFI1;
 	p->reg_file_port = reg_file_port;
@@ -75,6 +103,20 @@ shared_ptr<IrManusRefi2> IrManus::create_instr_refi2(
 	int row, int col,
 	int step_val_sd, int step_val, int step_val_sign, int refi_middle_delay_sd,
 	int refi_middle_delay, int no_of_reps_sd, int no_of_reps, int rpt_step_value){
+	
+	if(
+		step_val_sd<0 || step_val_sd>1 ||
+		step_val<0 || step_val>63 ||
+		step_val_sign<0 || step_val_sign>1 ||
+		refi_middle_delay_sd<0 || refi_middle_delay_sd>1 ||
+		refi_middle_delay<0 || refi_middle_delay>15 ||
+		no_of_reps_sd<0 || no_of_reps_sd>1 ||
+		no_of_reps<0 || no_of_reps>31 ||
+		rpt_step_value<0 || rpt_step_value>15
+	){
+		BOOST_LOG_TRIVIAL(fatal) << "REFI2 instruction parameter value error!";
+		return NULL;
+	}
 	
 	shared_ptr<IrManusRefi2> p = make_shared<IrManusRefi2>();
 	p->instr_type = INSTR_REFI2;
@@ -97,6 +139,22 @@ shared_ptr<IrManusRefi3> IrManus::create_instr_refi3(
 	int refi_middle_delay_ext, int no_of_rpt_ext, int rpt_step_value_ext,
 	int fft_end_stage, int dimarch_mode){
 	
+	if(
+		rpt_delay_sd<0 || rpt_delay_sd>1 ||
+		rpt_delay<0 || rpt_delay>63 ||
+		mode<0 || mode>1 ||
+		outp_cntrl<0 || outp_cntrl>3 ||
+		fft_state<0 || fft_state>5 ||
+		refi_middle_delay_ext<0 || refi_middle_delay_ext>3 ||
+		no_of_rpt_ext<0 || no_of_rpt_ext>1 ||
+		rpt_step_value_ext<0 || rpt_step_value_ext>3 ||
+		fft_end_stage<0 || fft_end_stage>5 ||
+		dimarch_mode<0 || dimarch_mode>1
+	){
+		BOOST_LOG_TRIVIAL(fatal) << "REFI3 instruction parameter value error!";
+		return NULL;
+	}
+	
 	shared_ptr<IrManusRefi3> p = make_shared<IrManusRefi3>();
 	p->instr_type = INSTR_REFI3;
 	p->rpt_delay_sd = rpt_delay_sd;
@@ -118,6 +176,14 @@ shared_ptr<IrManusDelay> IrManus::create_instr_delay(
 	int row, int col,
 	int del_cycles_sd, int del_cycles){
 	
+	if(
+		del_cycles_sd<0 || del_cycles_sd>1 ||
+		del_cycles<0 || del_cycles>32767
+	){
+		BOOST_LOG_TRIVIAL(fatal) << "DELAY instruction parameter value error!";
+		return NULL;
+	}
+	
 	shared_ptr<IrManusDelay> p = make_shared<IrManusDelay>();
 	p->instr_type = INSTR_DELAY;
 	p->del_cycles_sd = del_cycles_sd;
@@ -132,7 +198,7 @@ shared_ptr<IrManusRaccu> IrManus::create_instr_raccu(
 	int row, int col,
 	int raccu_mode, int raccu_op1_sd, int raccu_op1, int raccu_op2_sd,
 	int raccu_op2, int raccu_result_addrs){
-		
+	
 	shared_ptr<IrManusRaccu> p = make_shared<IrManusRaccu>();
 	p->instr_type = INSTR_RACCU;
 	p->raccu_mode = raccu_mode;
@@ -175,8 +241,22 @@ shared_ptr<IrManusLooptail> IrManus::create_instr_looptail(
 	return p;
 }
 
-shared_ptr<IrManusSwb> IrManus::create_instr_swb(int row, int col, int from_block, int from_address, int from_port, int to_block, int to_address, int to_port){
-
+shared_ptr<IrManusSwb> IrManus::create_instr_swb(int row, int col,
+	int from_block, int from_address, int from_port, int to_block, int to_address,
+	int to_port){
+	
+	if(
+		from_block<0 || from_block>1 ||
+		from_address<0 || from_address>_row*_col ||
+		from_port<0 || from_port>3 ||
+		to_block<0 || to_block>1 ||
+		to_address<0 || to_address>=_row*_col ||
+		to_port<0 || to_port>3
+	){
+		BOOST_LOG_TRIVIAL(fatal) << "SWB instruction parameter value error!";
+		return NULL;
+	}
+	
 	shared_ptr<IrManusSwb> p = make_shared<IrManusSwb>();
 	p->instr_type = INSTR_SWB;
 	p->from_block = from_block;
@@ -193,7 +273,15 @@ shared_ptr<IrManusSwb> IrManus::create_instr_swb(int row, int col, int from_bloc
 shared_ptr<IrManusBranch> IrManus::create_instr_branch(
 	int row, int col,
 	int branch_mode, int branch_false_address){
-
+	
+	if(
+		branch_mode<0 || branch_mode>3 ||
+		branch_false_address<0 || branch_false_address>63
+	){
+		BOOST_LOG_TRIVIAL(fatal) << "BRANCH instruction parameter value error!";
+		return NULL;
+	}
+	
 	shared_ptr<IrManusBranch> p = make_shared<IrManusBranch>();
 	p->instr_type = INSTR_BRANCH;
 	p->branch_mode = branch_mode;
@@ -207,6 +295,13 @@ shared_ptr<IrManusJump> IrManus::create_instr_jump(
 	int row, int col,
 	int true_address){
 
+	if(
+		true_address<0 || true_address>63
+	){
+		BOOST_LOG_TRIVIAL(fatal) << "JUMP instruction parameter value error!";
+		return NULL;
+	}
+	
 	shared_ptr<IrManusJump> p = make_shared<IrManusJump>();
 	p->instr_type = INSTR_JUMP;
 	p->true_address = true_address;

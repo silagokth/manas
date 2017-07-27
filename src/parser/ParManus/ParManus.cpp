@@ -21,7 +21,7 @@ void ParManus::run(string filename){
 	}
 	
 	yyin = f;
-	yydebug = 1; 
+	yydebug = 0; 
 
 	yyparse();
 }

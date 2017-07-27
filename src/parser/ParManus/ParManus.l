@@ -7,14 +7,15 @@
 
 %option noyywrap
 %option caseless
+%option yylineno
 
 %x C_COMMENT
 
 %%
 
 [ \t]+											{}
-[\r\n\f]+[ \t]+[\r\n\f]+		{BOOST_LOG_TRIVIAL(debug)<< "newline1"; return NEWLINE;}
-[\r\n\f]+										{BOOST_LOG_TRIVIAL(debug)<< "newline"; return NEWLINE;}
+[\r\n\f]+[ \t]+[\r\n\f]+		{return NEWLINE;}
+[\r\n\f]+										{return NEWLINE;}
 
 "/*"												{BEGIN(C_COMMENT);}
 <C_COMMENT>"*/"							{BEGIN(INITIAL);}

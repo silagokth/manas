@@ -8,6 +8,7 @@
 
 using namespace vesyla::ir;
 
+extern int yylineno;
 extern int yylex(void);
 static void yyerror(const char*);
 
@@ -85,6 +86,7 @@ IrManus* ir_ptr;
 %left MUL DIV
 %right POW
 
+%locations
 
 %%
 
@@ -165,130 +167,186 @@ instr_cell:
 
 instr_dpu:
 	DPU number number number number number number number number NEWLINE{
-		ir_ptr->create_instr_dpu(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9);
+		if(!ir_ptr->create_instr_dpu(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9)){
+			yyerror("DPU Instruction error!");
+		}
 	}
 	|DPU number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_dpu(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16);
+		if(!ir_ptr->create_instr_dpu(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16)){
+			yyerror("DPU Instruction error!");
+		}
 	}
 	;
 
 instr_refi1:
 	REFI1 number number number number number number number number NEWLINE{
-		ir_ptr->create_instr_refi1(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9);
+		if(!ir_ptr->create_instr_refi1(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9)){
+			yyerror("REFI1 Instruction error!");
+		}
 	}
 	|REFI1 number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_refi1(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16);
+		if(!ir_ptr->create_instr_refi1(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16)){
+			yyerror("REFI1 Instruction error!");
+		}
 	}
 	;
 
 instr_refi2:
 	REFI2 number number number number number number number number NEWLINE{
-		ir_ptr->create_instr_refi2(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9);
+		if(!ir_ptr->create_instr_refi2(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9)){
+			yyerror("REFI2 Instruction error!");
+		}
 	}
 	|REFI2 number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_refi2(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16);
+		if(!ir_ptr->create_instr_refi2(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16)){
+			yyerror("REFI2 Instruction error!");
+		}
 	}
 	;
 
 instr_refi3:
 	REFI3 number number number number number number number number number number NEWLINE{
-		ir_ptr->create_instr_refi3(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);
+		if(!ir_ptr->create_instr_refi3(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)){
+			yyerror("REFI3 Instruction error!");
+		}
 	}
 	|REFI3 number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_refi3(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16, $18, $20);
+		if(!ir_ptr->create_instr_refi3(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16, $18, $20)){
+			yyerror("REFI3 Instruction error!");
+		}
 	}
 	;
 
 instr_delay:
 	DELAY number number NEWLINE{
-		ir_ptr->create_instr_delay(coord_x, coord_y, $2, $3);
+		if(!ir_ptr->create_instr_delay(coord_x, coord_y, $2, $3)){
+			yyerror("DELAY Instruction error!");
+		}
 	}
 	|DELAY number COMMA number NEWLINE{
-		ir_ptr->create_instr_delay(coord_x, coord_y, $2, $4);
+		if(!ir_ptr->create_instr_delay(coord_x, coord_y, $2, $4)){
+			yyerror("DELAY Instruction error!");
+		}
 	}
 	;
 
 instr_raccu:
 	RACCU number number number number number number NEWLINE{
-		ir_ptr->create_instr_raccu(coord_x, coord_y, $2, $3, $4, $5, $6, $7);
+		if(!ir_ptr->create_instr_raccu(coord_x, coord_y, $2, $3, $4, $5, $6, $7)){
+			yyerror("RACCU Instruction error!");
+		}
 	}
 	|RACCU number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_raccu(coord_x, coord_y, $2, $4, $6, $8, $10, $12);
+		if(!ir_ptr->create_instr_raccu(coord_x, coord_y, $2, $4, $6, $8, $10, $12)){
+			yyerror("RACCU Instruction error!");
+		}
 	}
 	;
 
 instr_loopheader:
 	LOOPHEADER number number number number NEWLINE{
-		ir_ptr->create_instr_loopheader(coord_x, coord_y, $2, $3, $4, $5);
+		if(!ir_ptr->create_instr_loopheader(coord_x, coord_y, $2, $3, $4, $5)){
+			yyerror("LOOPHEADER Instruction error!");
+		}
 	}
 	|LOOPHEADER number COMMA number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_loopheader(coord_x, coord_y, $2, $4, $6, $8);
+		if(!ir_ptr->create_instr_loopheader(coord_x, coord_y, $2, $4, $6, $8)){
+			yyerror("LOOPHEADER Instruction error!");
+		}
 	}
 	;
 
 instr_looptail:
 	LOOPTAIL number number number NEWLINE{
-		ir_ptr->create_instr_looptail(coord_x, coord_y, $2, $3, $4);
+		if(!ir_ptr->create_instr_looptail(coord_x, coord_y, $2, $3, $4)){
+			yyerror("LOOPTAIL Instruction error!");
+		}
 	}
 	|LOOPTAIL number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_looptail(coord_x, coord_y, $2, $4, $6);
+		if(!ir_ptr->create_instr_looptail(coord_x, coord_y, $2, $4, $6)){
+			yyerror("LOOPTAIL Instruction error!");
+		}
 	}
 	;
 
 instr_swb:
 	SWB number number number number number number NEWLINE{
-		ir_ptr->create_instr_swb(coord_x, coord_y, $2, $3, $4, $5, $6, $7);
+		if(!ir_ptr->create_instr_swb(coord_x, coord_y, $2, $3, $4, $5, $6, $7)){
+			yyerror("SWB Instruction error!");
+		}
 	}
 	|SWB number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_swb(coord_x, coord_y, $2, $4, $6, $8, $10, $12);
+		if(!ir_ptr->create_instr_swb(coord_x, coord_y, $2, $4, $6, $8, $10, $12)){
+			yyerror("SWB Instruction error!");
+		}
 	}
 	;
 
 instr_branch:
 	BRANCH number number NEWLINE{
-		ir_ptr->create_instr_branch(coord_x, coord_y, $2, $3);
+		if(!ir_ptr->create_instr_branch(coord_x, coord_y, $2, $3)){
+			yyerror("BRANCH Instruction error!");
+		}
 	}
 	|BRANCH number COMMA number NEWLINE{
-		ir_ptr->create_instr_branch(coord_x, coord_y, $2, $4);
+		if(!ir_ptr->create_instr_branch(coord_x, coord_y, $2, $4)){
+			yyerror("BRANCH Instruction error!");
+		}
 	}
 	;
 
 instr_jump:
 	JUMP number NEWLINE{
-		ir_ptr->create_instr_jump(coord_x, coord_y, $2);
+		if(!ir_ptr->create_instr_jump(coord_x, coord_y, $2)){
+			yyerror("JUMP Instruction error!");
+		}
 	}
 	;
 
 instr_sramread:
 	SRAMREAD number number number number number number number number number number number number number number number number number NEWLINE{
-		ir_ptr->create_instr_sramread(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18);
+		if(!ir_ptr->create_instr_sramread(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)){
+			yyerror("SRAMREAD Instruction error!");
+		}
 	}
 	|SRAMREAD number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_sramread(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16, $18, $20, $22, $24, $26, $28, $30, $32, $34);
+		if(!ir_ptr->create_instr_sramread(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16, $18, $20, $22, $24, $26, $28, $30, $32, $34)){
+			yyerror("SRAMREAD Instruction error!");
+		}
 	}
 	;
 
 instr_sramwrite:
 	SRAMWRITE number number number number number number number number number number number number number number number number number NEWLINE{
-		ir_ptr->create_instr_sramwrite(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18);
+		if(!ir_ptr->create_instr_sramwrite(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)){
+			yyerror("SRAMWRITE Instruction error!");
+		}
 	}
 	|SRAMWRITE number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_sramwrite(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16, $18, $20, $22, $24, $26, $28, $30, $32, $34);
+		if(!ir_ptr->create_instr_sramwrite(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16, $18, $20, $22, $24, $26, $28, $30, $32, $34)){
+			yyerror("SRAMWRITE Instruction error!");
+		}
 	}
 	;
 
 instr_route:
 	ROUTE number number number number number number number number NEWLINE{
-		ir_ptr->create_instr_route(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9);
+		if(!ir_ptr->create_instr_route(coord_x, coord_y, $2, $3, $4, $5, $6, $7, $8, $9)){
+			yyerror("ROUTE Instruction error!");
+		}
 	}
 	|ROUTE number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number COMMA number NEWLINE{
-		ir_ptr->create_instr_route(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16);
+		if(!ir_ptr->create_instr_route(coord_x, coord_y, $2, $4, $6, $8, $10, $12, $14, $16)){
+			yyerror("ROUTE Instruction error!");
+		}
 	}
 	;
 
 instr_halt:
 	HALT NEWLINE{
-		ir_ptr->create_instr_halt(coord_x, coord_y);
+		if(!ir_ptr->create_instr_halt(coord_x, coord_y)){
+			yyerror("HALT Instruction error!");
+		}
 	}
 	;
 
@@ -355,7 +413,7 @@ variable:
 		delete $3;
 		delete $4;
 		if(!v){
-			yyerror("variable error!");
+			yyerror("Variable error!");
 		}
 	}
 	;
@@ -412,7 +470,8 @@ parse_error:
 %%
 
 static void yyerror(const char* message){
-	BOOST_LOG_TRIVIAL(fatal) << message;
+	BOOST_LOG_TRIVIAL(fatal) << "Error near line " << yylineno-1 << " : "<<endl
+		<< message;
 	exit(1);
 }
 	
