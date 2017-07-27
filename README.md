@@ -2,6 +2,8 @@
  
 A SiLago assembler
 
+Visit [SiLago documentation](https://herenvarno.github.io/SiLagoDoc/Compiler/Manus).
+
 ## Input and Output
 
 The input of Manus is a caseless text file which contains the defination of variables and
