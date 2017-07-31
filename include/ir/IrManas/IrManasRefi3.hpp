@@ -1,12 +1,12 @@
-#ifndef __VESYLA_IR_IR_MANUS_REFI3_HPP__
-#define __VESYLA_IR_IR_MANUS_REFI3_HPP__
+#ifndef __VESYLA_IR_IR_MANAS_REFI3_HPP__
+#define __VESYLA_IR_IR_MANAS_REFI3_HPP__
 
-#include "IrManusBase.hpp"
+#include "IrManasBase.hpp"
 
 namespace vesyla{
 namespace ir{
 
-class IrManusRefi3 : public IrManusBase{
+class IrManasRefi3 : public IrManasBase{
 public:
 	int rpt_delay_sd;
 	int rpt_delay;
@@ -23,4 +23,4 @@ public:
 }
 }
 
-#endif // __VESYLA_IR_IR_MANUS_REFI3_HPP__
+#endif // __VESYLA_IR_IR_MANAS_REFI3_HPP__

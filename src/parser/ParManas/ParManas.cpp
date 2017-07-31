@@ -1,18 +1,18 @@
-#include "parser/ParManus/ParManus.hpp"
+#include "parser/ParManas/ParManas.hpp"
 
 extern FILE *yyin;
 extern int yydebug;
-extern IrManus* ir_ptr;
+extern IrManas* ir_ptr;
 
 namespace vesyla{
 namespace parser{
 
-ParManus::ParManus(int row_num, int col_num, int refi_total_entry, IrManus* ir_out){
+ParManas::ParManas(int row_num, int col_num, int refi_total_entry, IrManas* ir_out){
 	ir_ptr = ir_out;
 	ir_ptr->reset(row_num, col_num, refi_total_entry);
 }
 
-void ParManus::run(string filename){
+void ParManas::run(string filename){
 	FILE *f = NULL;
 	f = fopen(filename.c_str(), "r");
 	if(!f){

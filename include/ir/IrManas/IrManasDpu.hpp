@@ -1,12 +1,12 @@
-#ifndef __VESYLA_IR_IR_MANUS_DPU_HPP__
-#define __VESYLA_IR_IR_MANUS_DPU_HPP__
+#ifndef __VESYLA_IR_IR_MANAS_DPU_HPP__
+#define __VESYLA_IR_IR_MANAS_DPU_HPP__
 
-#include "IrManusBase.hpp"
+#include "IrManasBase.hpp"
 
 namespace vesyla{
 namespace ir{
 
-class IrManusDpu : public IrManusBase{
+class IrManasDpu : public IrManasBase{
 public:
 	
 	int dpu_mode;
@@ -21,4 +21,4 @@ public:
 
 }
 }
-#endif // __VESYLA_IR_IR_MANUS_DPU_HPP__
+#endif // __VESYLA_IR_IR_MANAS_DPU_HPP__

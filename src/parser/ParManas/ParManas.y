@@ -2,7 +2,7 @@
 
 #include <math.h>
 #include <boost/log/trivial.hpp>
-#include "ir/IrManus/IrManus.hpp"
+#include "ir/IrManas/IrManas.hpp"
 
 #define YYDEBUG 1
 
@@ -16,7 +16,7 @@ int coord_x = 0;
 int coord_y = 0;
 int curr_seg = 0;
 
-IrManus* ir_ptr;
+IrManas* ir_ptr;
 
 %}
 
@@ -409,7 +409,7 @@ variables:
 	
 variable:
 	VARIABLE distribution location array NEWLINE{
-		shared_ptr<IrManusVar> v = ir_ptr->create_var($1, (DistrType)$2, *static_cast<vector<vector<int>>*>($3), *static_cast<vector<int>*>($4));
+		shared_ptr<IrManasVar> v = ir_ptr->create_var($1, (DistrType)$2, *static_cast<vector<vector<int>>*>($3), *static_cast<vector<int>*>($4));
 		delete $3;
 		delete $4;
 		if(!v){

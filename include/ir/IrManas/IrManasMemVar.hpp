@@ -1,5 +1,5 @@
-#ifndef __VESYLA_IR_IR_MANUS_MEM_VAR_HPP__
-#define __VESYLA_IR_IR_MANUS_MEM_VAR_HPP__
+#ifndef __VESYLA_IR_IR_MANAS_MEM_VAR_HPP__
+#define __VESYLA_IR_IR_MANAS_MEM_VAR_HPP__
 
 #include <boost/log/trivial.hpp>
 #include <vector>
@@ -11,7 +11,7 @@ namespace ir{
 
 string distr_type_to_str(DistrType t);
 
-class IrManusVar{
+class IrManasVar{
 
 public:
 	string name;
@@ -24,4 +24,4 @@ public:
 }
 
 
-#endif // __VESYLA_IR_IR_MANUS_MEM_VAR_HPP__
+#endif // __VESYLA_IR_IR_MANAS_MEM_VAR_HPP__

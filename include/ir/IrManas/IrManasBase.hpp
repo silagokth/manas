@@ -1,5 +1,5 @@
-#ifndef __VESYLA_IR_IR_MANUS_BASE_HPP__
-#define __VESYLA_IR_IR_MANUS_BASE_HPP__
+#ifndef __VESYLA_IR_IR_MANAS_BASE_HPP__
+#define __VESYLA_IR_IR_MANAS_BASE_HPP__
 
 #include <boost/log/trivial.hpp>
 #include <memory>
@@ -30,7 +30,7 @@ enum InstrType{
 
 string instr_type_to_str(InstrType t);
 
-class IrManusBase{
+class IrManasBase{
 public:
 	InstrType instr_type;
 };
@@ -38,4 +38,4 @@ public:
 }
 }
 
-#endif // __VESYLA_IR_IR_MANUS_BASE_HPP__
+#endif // __VESYLA_IR_IR_MANAS_BASE_HPP__

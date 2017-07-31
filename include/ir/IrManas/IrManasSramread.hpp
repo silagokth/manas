@@ -1,11 +1,12 @@
-#ifndef __VESYLA_IR_IR_MANUS_SRAMWRITE_HPP__
-#define __VESYLA_IR_IR_MANUS_SRAMWRITE_HPP__
+#ifndef __VESYLA_IR_IR_MANAS_SRAMREAD_HPP__
+#define __VESYLA_IR_IR_MANAS_SRAMREAD_HPP__
 
-#include "IrManusBase.hpp"
+#include "IrManasBase.hpp"
+
 namespace vesyla{
 namespace ir{
 
-class IrManusSramwrite : public IrManusBase{
+class IrManasSramread : public IrManasBase{
 public:
 	int mode;
 	int initial_address;
@@ -27,4 +28,5 @@ public:
 };
 }
 }
-#endif // __VESYLA_IR_IR_MANUS_SRAMWRITE_HPP__
+
+#endif // __VESYLA_IR_IR_MANAS_SRAMREAD_HPP__

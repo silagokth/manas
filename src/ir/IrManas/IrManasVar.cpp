@@ -1,4 +1,4 @@
-#include "ir/IrManus/IrManusVar.hpp"
+#include "ir/IrManas/IrManasVar.hpp"
 
 namespace vesyla{
 namespace ir{

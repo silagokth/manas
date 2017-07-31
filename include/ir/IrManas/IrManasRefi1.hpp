@@ -1,12 +1,12 @@
-#ifndef __VESYLA_IR_IR_MANUS_REFI1_HPP__
-#define __VESYLA_IR_IR_MANUS_REFI1_HPP__
+#ifndef __VESYLA_IR_IR_MANAS_REFI1_HPP__
+#define __VESYLA_IR_IR_MANAS_REFI1_HPP__
 
-#include "IrManusBase.hpp"
+#include "IrManasBase.hpp"
 
 namespace vesyla{
 namespace ir{
 
-class IrManusRefi1 : public IrManusBase{
+class IrManasRefi1 : public IrManasBase{
 public:
 	 int reg_file_port;
 	 int subseq_instrs;
@@ -20,4 +20,4 @@ public:
 }
 }
 
-#endif // __VESYLA_IR_IR_MANUS_REFI1_HPP__
+#endif // __VESYLA_IR_IR_MANAS_REFI1_HPP__

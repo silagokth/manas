@@ -1,7 +1,7 @@
 #ifndef __VESYLA_GENERATOR_GE_VSIM_HPP__
 #define __VESYLA_GENERATOR_GE_VSIM_HPP__
 
-#include "ir/IrManus/IrManus.hpp"
+#include "ir/IrManas/IrManas.hpp"
 #include "generator/util/GeWriter.hpp"
 #include <boost/dynamic_bitset.hpp>
 #include <math.h>
@@ -18,7 +18,7 @@ namespace generator{
 
 class GeVsim{
 public:
-	GeVsim(string design, IrManus* ir_in, string fabric_path, string output_dir);
+	GeVsim(string design, IrManas* ir_in, string fabric_path, string output_dir);
 	void gen_tb();
 	void gen_cfg();
 	void gen_profiler();
@@ -27,7 +27,7 @@ public:
 
 private:
 	string _design;
-	IrManus* _ir_in;
+	IrManas* _ir_in;
 	string _output_dir;
 	string _fabric_path;
 	

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.9)
-project(manus)
+project(manas)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -27,18 +27,18 @@ file(GLOB SOURCES_IR "src/ir/*.cpp" "src/ir/*/*.cpp")
 file(GLOB SOURCES_GENERATOR "src/generator/*.cpp" "src/generator/*/*.cpp")
 file(GLOB SOURCES_VESYLA "src/vesyla/*.cpp")
 
-file(GLOB SOURCES_FLEX_MANUS "src/parser/ParManus/*.l")
-file(GLOB SOURCES_BISON_MANUS "src/parser/ParManus/*.y")
+file(GLOB SOURCES_FLEX_MANAS "src/parser/ParManas/*.l")
+file(GLOB SOURCES_BISON_MANAS "src/parser/ParManas/*.y")
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -w -pedantic -lpthread -g -O2 -DBOOST_LOG_DYN_LINK")
 set(PROJECT_LINK_LIBS)
 
-BISON_TARGET(ParManusParser ${SOURCES_BISON_MANUS} ${CMAKE_CURRENT_BINARY_DIR}/ParManus_parser.cpp)
-FLEX_TARGET(ParManusScanner ${SOURCES_FLEX_MANUS} ${CMAKE_CURRENT_BINARY_DIR}/ParManus_lexer.cpp)
-ADD_FLEX_BISON_DEPENDENCY(ParManusScanner ParManusParser)
+BISON_TARGET(ParManasParser ${SOURCES_BISON_MANAS} ${CMAKE_CURRENT_BINARY_DIR}/ParManas_parser.cpp)
+FLEX_TARGET(ParManasScanner ${SOURCES_FLEX_MANAS} ${CMAKE_CURRENT_BINARY_DIR}/ParManas_lexer.cpp)
+ADD_FLEX_BISON_DEPENDENCY(ParManasScanner ParManasParser)
 
-add_library(parser SHARED ${SOURCES_PARSER} ${BISON_ParManusParser_OUTPUTS} ${FLEX_ParManusScanner_OUTPUTS})
+add_library(parser SHARED ${SOURCES_PARSER} ${BISON_ParManasParser_OUTPUTS} ${FLEX_ParManasScanner_OUTPUTS})
 add_library(ir SHARED ${SOURCES_IR})
 add_library(generator SHARED ${SOURCES_GENERATOR})
-add_executable(manus ${SOURCES_VESYLA})
-target_link_libraries(manus parser ir generator ${Boost_LIBRARIES} ${PROJECT_LINK_LIBS})
+add_executable(manas ${SOURCES_VESYLA})
+target_link_libraries(manas parser ir generator ${Boost_LIBRARIES} ${PROJECT_LINK_LIBS})

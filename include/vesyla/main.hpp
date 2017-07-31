@@ -1,8 +1,8 @@
 #ifndef __VESYLA_VESYLA_MAIN_HPP__
 #define __VESYLA_VESYLA_MAIN_HPP__
 
-#include "ir/IrManus/IrManus.hpp"
-#include "parser/ParManus/ParManus.hpp"
+#include "ir/IrManas/IrManas.hpp"
+#include "parser/ParManas/ParManas.hpp"
 #include "generator/GeVsim/GeVsim.hpp"
 
 int main(int argc, char* argv[]);

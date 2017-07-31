@@ -26,7 +26,7 @@ int main(int argc, char* argv[]){
 		parsed_options parsed = parse_command_line(argc, argv, desc);
 		store(parsed, vm);
 		if(vm.count("help")){
-			cout	<< "Manus" << endl 
+			cout	<< "Manas" << endl 
 						<< "=============================================" << endl
 						<< desc << endl; 
 			return 0; 
@@ -75,8 +75,8 @@ int main(int argc, char* argv[]){
 		boost::filesystem::create_directories(odir);
 	}
 	
-	ir::IrManus ir0;
-	parser::ParManus par(hw_rows, hw_cols, hw_reg_file_depth, &ir0);
+	ir::IrManas ir0;
+	parser::ParManas par(hw_rows, hw_cols, hw_reg_file_depth, &ir0);
 	par.run(file_list[0]);
 	
 	ir0.dump();

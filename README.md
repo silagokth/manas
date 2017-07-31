@@ -1,12 +1,12 @@
-# Manus
+# Manas
  
 A SiLago assembler
 
-Visit [SiLago documentation](https://herenvarno.github.io/SiLagoDoc/Compiler/Manus).
+Visit [SiLago documentation](https://herenvarno.github.io/SiLagoDoc/Compiler/Manas).
 
 ## Input and Output
 
-The input of Manus is a caseless text file which contains the defination of variables and
+The input of Manas is a caseless text file which contains the defination of variables and
 the list of instructions. The output is a testbench used for simulation under
 QuestaSim.
 
