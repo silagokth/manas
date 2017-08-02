@@ -1,7 +1,7 @@
 #ifndef __VESYLA_IR_IR_MANAS_BASE_HPP__
 #define __VESYLA_IR_IR_MANAS_BASE_HPP__
 
-#include <boost/log/trivial.hpp>
+#include "util/Common.hpp"
 #include <memory>
 
 using namespace std;

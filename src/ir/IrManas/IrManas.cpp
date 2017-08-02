@@ -5,7 +5,7 @@ namespace ir{
 
 void IrManas::reset(int num_row, int num_col, int refi_total_entry){
 	if(num_row<=0 || num_col<=0 || refi_total_entry<=0){
-		BOOST_LOG_TRIVIAL(error) << "fabric size error!";
+		LOG(ERROR) << "fabric size error!";
 		return;
 	}
 	
@@ -46,7 +46,7 @@ shared_ptr<IrManasDpu> IrManas::create_instr_dpu(
 		dpu_acc_clear<0 || dpu_acc_clear >255 ||
 		process_inout<0 || process_inout>3
 	){
-		BOOST_LOG_TRIVIAL(fatal) << "DPU instruction parameter value error!";
+		LOG(FATAL) << "DPU instruction parameter value error!";
 		return NULL;
 	}
 	
@@ -80,7 +80,7 @@ shared_ptr<IrManasRefi1> IrManas::create_instr_refi1(int row, int col,
 		initial_delay_sd<0 || initial_delay_sd>1 ||
 		initial_delay<0 || initial_delay>15
 	){
-		BOOST_LOG_TRIVIAL(fatal) << "REFI1 instruction parameter value error!";
+		LOG(FATAL) << "REFI1 instruction parameter value error!";
 		return NULL;
 	}
 	
@@ -114,7 +114,7 @@ shared_ptr<IrManasRefi2> IrManas::create_instr_refi2(
 		no_of_reps<0 || no_of_reps>31 ||
 		rpt_step_value<0 || rpt_step_value>15
 	){
-		BOOST_LOG_TRIVIAL(fatal) << "REFI2 instruction parameter value error!";
+		LOG(FATAL) << "REFI2 instruction parameter value error!";
 		return NULL;
 	}
 	
@@ -151,7 +151,7 @@ shared_ptr<IrManasRefi3> IrManas::create_instr_refi3(
 		fft_end_stage<0 || fft_end_stage>5 ||
 		dimarch_mode<0 || dimarch_mode>1
 	){
-		BOOST_LOG_TRIVIAL(fatal) << "REFI3 instruction parameter value error!";
+		LOG(FATAL) << "REFI3 instruction parameter value error!";
 		return NULL;
 	}
 	
@@ -180,7 +180,7 @@ shared_ptr<IrManasDelay> IrManas::create_instr_delay(
 		del_cycles_sd<0 || del_cycles_sd>1 ||
 		del_cycles<0 || del_cycles>32767
 	){
-		BOOST_LOG_TRIVIAL(fatal) << "DELAY instruction parameter value error!";
+		LOG(FATAL) << "DELAY instruction parameter value error!";
 		return NULL;
 	}
 	
@@ -253,7 +253,7 @@ shared_ptr<IrManasSwb> IrManas::create_instr_swb(int row, int col,
 		to_address<0 || to_address>=_row*_col ||
 		to_port<0 || to_port>3
 	){
-		BOOST_LOG_TRIVIAL(fatal) << "SWB instruction parameter value error!";
+		LOG(FATAL) << "SWB instruction parameter value error!";
 		return NULL;
 	}
 	
@@ -278,7 +278,7 @@ shared_ptr<IrManasBranch> IrManas::create_instr_branch(
 		branch_mode<0 || branch_mode>3 ||
 		branch_false_address<0 || branch_false_address>63
 	){
-		BOOST_LOG_TRIVIAL(fatal) << "BRANCH instruction parameter value error!";
+		LOG(FATAL) << "BRANCH instruction parameter value error!";
 		return NULL;
 	}
 	
@@ -298,7 +298,7 @@ shared_ptr<IrManasJump> IrManas::create_instr_jump(
 	if(
 		true_address<0 || true_address>63
 	){
-		BOOST_LOG_TRIVIAL(fatal) << "JUMP instruction parameter value error!";
+		LOG(FATAL) << "JUMP instruction parameter value error!";
 		return NULL;
 	}
 	
@@ -403,11 +403,11 @@ shared_ptr<IrManasHalt> IrManas::create_instr_halt(int row, int col){
 
 shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<vector<int>> refi, vector<int> value){
 	if(_variables.find(name)!=_variables.end()){
-		BOOST_LOG_TRIVIAL(error) << "variable " << name << " has already existed!";
+		LOG(ERROR) << "variable " << name << " has already existed!";
 		return NULL;
 	}
 	if(value.size() <=0){
-		BOOST_LOG_TRIVIAL(error) << "variable " << name << " doesn't have any element!";
+		LOG(ERROR) << "variable " << name << " doesn't have any element!";
 		return NULL;
 	}
 	shared_ptr<IrManasVar> p = make_shared<IrManasVar>();
@@ -431,7 +431,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 			total_empty_slot += (_refi_total_entry - _refi_counter[curr_refi_x][curr_refi_y] -1);
 		}
 		if(total_empty_slot<value.size()){
-			BOOST_LOG_TRIVIAL(error) << "variable " << name << " with "<<value.size()<<" elements can't be fully distributed to "<<refi.size()<<" register files!";
+			LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be fully distributed to "<<refi.size()<<" register files!";
 			return NULL;
 		}
 		
@@ -459,7 +459,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 		}
 	}else{
 		if(value.size()%refi.size()!=0){
-			BOOST_LOG_TRIVIAL(error) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to "<<refi.size()<<" register files!";
+			LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to "<<refi.size()<<" register files!";
 			return NULL;
 		}
 		int part = value.size()/refi.size();
@@ -467,7 +467,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 			int curr_refi_x = refi[i][0];
 			int curr_refi_y = refi[i][1];
 			if(_refi_counter[curr_refi_x][curr_refi_y]+part>=_refi_total_entry){
-				BOOST_LOG_TRIVIAL(error) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to register file ["<<curr_refi_x<<","<<curr_refi_y<<"]!";
+				LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to register file ["<<curr_refi_x<<","<<curr_refi_y<<"]!";
 				return NULL;
 			}
 		}
@@ -486,11 +486,11 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 
 //shared_ptr<IrManasVar> IrManas::create_mem_var(string name, DistrType distr, vector<vector<int>> refi, vector<vector<int>> value){
 //	if(_variables.find(name)!=_variables.end()){
-//		BOOST_LOG_TRIVIAL(error) << "variable " << name << " has already existed!";
+//		LOG(ERROR) << "variable " << name << " has already existed!";
 //		return NULL;
 //	}
 //	if(value.size() <=0){
-//		BOOST_LOG_TRIVIAL(error) << "variable " << name << " doesn't have any element!";
+//		LOG(ERROR) << "variable " << name << " doesn't have any element!";
 //		return NULL;
 //	}
 //	shared_ptr<IrManasVar> p = make_shared<IrManasVar>();
@@ -515,7 +515,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 //			total_empty_slot += (_refi_total_entry - _refi_counter[curr_refi_x][curr_refi_y] -1);
 //		}
 //		if(total_empty_slot<value.size()){
-//			BOOST_LOG_TRIVIAL(error) << "variable " << name << " with "<<value.size()<<" elements can't be fully distributed to "<<refi.size()<<" register files!";
+//			LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be fully distributed to "<<refi.size()<<" register files!";
 //			return NULL;
 //		}
 //		
@@ -543,7 +543,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 //		}
 //	}else{
 //		if(value.size()%refi.size()!=0){
-//			BOOST_LOG_TRIVIAL(error) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to "<<refi.size()<<" register files!";
+//			LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to "<<refi.size()<<" register files!";
 //			return NULL;
 //		}
 //		int part = value.size()/refi.size();
@@ -551,7 +551,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 //			int curr_refi_x = refi[i][0];
 //			int curr_refi_y = refi[i][1];
 //			if(_refi_counter[curr_refi_x][curr_refi_y]+part>=_refi_total_entry){
-//				BOOST_LOG_TRIVIAL(error) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to register file ["<<curr_refi_x<<","<<curr_refi_y<<"]!";
+//				LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to register file ["<<curr_refi_x<<","<<curr_refi_y<<"]!";
 //				return NULL;
 //			}
 //		}
@@ -625,7 +625,7 @@ void IrManas::get_variable_element(int row, int col, int pos, string& name, int&
 
 int IrManas::get_variable_init_value(string name, int index){
 	if(_variables.find(name)==_variables.end()){
-		BOOST_LOG_TRIVIAL(error) << "No such variable with name " << name;
+		LOG(ERROR) << "No such variable with name " << name;
 		return -1;
 	}
 	return _variables[name]->value[index];
@@ -633,7 +633,7 @@ int IrManas::get_variable_init_value(string name, int index){
 
 //vector<int> IrManas::get_mem_variable_init_value(string name, int index){
 //	if(_variables.find(name)==_variables.end()){
-//		BOOST_LOG_TRIVIAL(error) << "No such variable with name " << name;
+//		LOG(ERROR) << "No such variable with name " << name;
 //		return -1;
 //	}
 //	return _variables[name]->value[index];

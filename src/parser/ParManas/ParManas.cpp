@@ -16,8 +16,7 @@ void ParManas::run(string filename){
 	FILE *f = NULL;
 	f = fopen(filename.c_str(), "r");
 	if(!f){
-		BOOST_LOG_TRIVIAL(fatal) << "Can't open file" << filename << " !";
-		exit(-1);
+		LOG(FATAL) << "Can't open file" << filename << " !";
 	}
 	
 	yyin = f;

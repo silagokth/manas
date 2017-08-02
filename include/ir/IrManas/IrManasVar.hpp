@@ -1,7 +1,7 @@
 #ifndef __VESYLA_IR_IR_MANAS_VAR_HPP__
 #define __VESYLA_IR_IR_MANAS_VAR_HPP__
 
-#include <boost/log/trivial.hpp>
+#include "util/Common.hpp"
 #include <vector>
 
 using namespace std;

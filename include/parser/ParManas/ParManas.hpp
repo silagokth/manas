@@ -1,7 +1,7 @@
 #ifndef __VESYLA_PARSER_PAR_MANAS_HPP__
 #define __VESYLA_PARSER_PAR_MANAS_HPP__
 
-#include <boost/log/trivial.hpp>
+#include "util/Common.hpp"
 #include "ParManas_parser.hpp"
 #include "ir/IrManas/IrManas.hpp"
 

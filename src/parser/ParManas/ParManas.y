@@ -1,7 +1,7 @@
 %{
 
 #include <math.h>
-#include <boost/log/trivial.hpp>
+#include "util/Common.hpp"
 #include "ir/IrManas/IrManas.hpp"
 
 #define YYDEBUG 1
@@ -470,9 +470,7 @@ parse_error:
 %%
 
 static void yyerror(const char* message){
-	BOOST_LOG_TRIVIAL(fatal) << "Error near line " << yylineno-1 << " : "<<endl
-		<< message;
-	exit(1);
+	LOG(FATAL) << "Error near line " << yylineno-1 << " : "<< endl << message;
 }
 	
 

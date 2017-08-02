@@ -7,7 +7,7 @@ GeWriter::GeWriter(string filename){
 	_f.close();
 	_f.open(filename);
 	if(!_f){
-		BOOST_LOG_TRIVIAL(error) << "Can't open file " << filename << "!";
+		LOG(ERROR) << "Can't open file " << filename << "!";
 		return;
 	}
 	_depth = 0;

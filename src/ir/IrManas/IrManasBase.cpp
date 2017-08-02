@@ -21,7 +21,7 @@ string instr_type_to_str(InstrType t){
 	case INSTR_SRAMWRITE: s = "INSTR_SRAMWRITE"; break;
 	case INSTR_ROUTE: s = "INSTR_ROUTE"; break;
 	case INSTR_HALT: s = "INSTR_HALT"; break;
-	default: BOOST_LOG_TRIVIAL(error) << "No such instruction type"; break;
+	default: LOG(ERROR) << "No such instruction type"; break;
 	}
 	return s;
 }

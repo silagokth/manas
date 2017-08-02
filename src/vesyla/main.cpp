@@ -7,6 +7,9 @@ using namespace std;
 using namespace boost::program_options;
 using namespace vesyla;
 
+
+INITIALIZE_EASYLOGGINGPP
+
 int main(int argc, char* argv[]){
 
 	// Argument parsing
@@ -42,8 +45,7 @@ int main(int argc, char* argv[]){
 	}
 	
 	if(file_list.empty()){
-		BOOST_LOG_TRIVIAL(fatal) << "No source file specified!";
-		exit(-1);
+		LOG(FATAL) << "No source file specified!";
 	}
 	
 	// red fabric setting
@@ -66,8 +68,7 @@ int main(int argc, char* argv[]){
 		}
 	}
 	if(hw_reg_file_depth<=0||hw_rows<=0||hw_cols<=0){
-		BOOST_LOG_TRIVIAL(fatal) << "Fabric size is wrong!";
-		exit(-1);
+		LOG(FATAL) << "Fabric size is wrong!";
 	} 
 	
 	if(!boost::filesystem::exists(path_output)){

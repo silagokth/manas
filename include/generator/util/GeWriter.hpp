@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <boost/log/trivial.hpp>
+#include "util/Common.hpp"
 
 using namespace std;
 
