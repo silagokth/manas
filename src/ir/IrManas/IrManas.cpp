@@ -47,7 +47,7 @@ shared_ptr<IrManasDpu> IrManas::create_instr_dpu(
 		process_inout<0 || process_inout>3
 	){
 		LOG(FATAL) << "DPU instruction parameter value error!";
-		return NULL;
+		
 	}
 	
 	shared_ptr<IrManasDpu> p = make_shared<IrManasDpu>();
@@ -81,7 +81,7 @@ shared_ptr<IrManasRefi1> IrManas::create_instr_refi1(int row, int col,
 		initial_delay<0 || initial_delay>15
 	){
 		LOG(FATAL) << "REFI1 instruction parameter value error!";
-		return NULL;
+		
 	}
 	
 	shared_ptr<IrManasRefi1> p = make_shared<IrManasRefi1>();
@@ -115,7 +115,7 @@ shared_ptr<IrManasRefi2> IrManas::create_instr_refi2(
 		rpt_step_value<0 || rpt_step_value>15
 	){
 		LOG(FATAL) << "REFI2 instruction parameter value error!";
-		return NULL;
+		
 	}
 	
 	shared_ptr<IrManasRefi2> p = make_shared<IrManasRefi2>();
@@ -152,7 +152,7 @@ shared_ptr<IrManasRefi3> IrManas::create_instr_refi3(
 		dimarch_mode<0 || dimarch_mode>1
 	){
 		LOG(FATAL) << "REFI3 instruction parameter value error!";
-		return NULL;
+		
 	}
 	
 	shared_ptr<IrManasRefi3> p = make_shared<IrManasRefi3>();
@@ -181,7 +181,7 @@ shared_ptr<IrManasDelay> IrManas::create_instr_delay(
 		del_cycles<0 || del_cycles>32767
 	){
 		LOG(FATAL) << "DELAY instruction parameter value error!";
-		return NULL;
+		
 	}
 	
 	shared_ptr<IrManasDelay> p = make_shared<IrManasDelay>();
@@ -254,7 +254,7 @@ shared_ptr<IrManasSwb> IrManas::create_instr_swb(int row, int col,
 		to_port<0 || to_port>3
 	){
 		LOG(FATAL) << "SWB instruction parameter value error!";
-		return NULL;
+		
 	}
 	
 	shared_ptr<IrManasSwb> p = make_shared<IrManasSwb>();
@@ -279,7 +279,7 @@ shared_ptr<IrManasBranch> IrManas::create_instr_branch(
 		branch_false_address<0 || branch_false_address>63
 	){
 		LOG(FATAL) << "BRANCH instruction parameter value error!";
-		return NULL;
+		
 	}
 	
 	shared_ptr<IrManasBranch> p = make_shared<IrManasBranch>();
@@ -299,7 +299,7 @@ shared_ptr<IrManasJump> IrManas::create_instr_jump(
 		true_address<0 || true_address>63
 	){
 		LOG(FATAL) << "JUMP instruction parameter value error!";
-		return NULL;
+		
 	}
 	
 	shared_ptr<IrManasJump> p = make_shared<IrManasJump>();
@@ -403,12 +403,12 @@ shared_ptr<IrManasHalt> IrManas::create_instr_halt(int row, int col){
 
 shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<vector<int>> refi, vector<int> value){
 	if(_variables.find(name)!=_variables.end()){
-		LOG(ERROR) << "variable " << name << " has already existed!";
-		return NULL;
+		LOG(FATAL) << "variable " << name << " has already existed!";
+		
 	}
 	if(value.size() <=0){
-		LOG(ERROR) << "variable " << name << " doesn't have any element!";
-		return NULL;
+		LOG(FATAL) << "variable " << name << " doesn't have any element!";
+		
 	}
 	shared_ptr<IrManasVar> p = make_shared<IrManasVar>();
 	p->name = name;
@@ -431,8 +431,8 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 			total_empty_slot += (_refi_total_entry - _refi_counter[curr_refi_x][curr_refi_y] -1);
 		}
 		if(total_empty_slot<value.size()){
-			LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be fully distributed to "<<refi.size()<<" register files!";
-			return NULL;
+			LOG(FATAL) << "variable " << name << " with "<<value.size()<<" elements can't be fully distributed to "<<refi.size()<<" register files!";
+			
 		}
 		
 		int element_count = value.size();
@@ -460,7 +460,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 	}else{
 		if(value.size()%refi.size()!=0){
 			LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to "<<refi.size()<<" register files!";
-			return NULL;
+			
 		}
 		int part = value.size()/refi.size();
 		for(int i=0; i<refi.size();i++){
@@ -468,7 +468,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 			int curr_refi_y = refi[i][1];
 			if(_refi_counter[curr_refi_x][curr_refi_y]+part>=_refi_total_entry){
 				LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to register file ["<<curr_refi_x<<","<<curr_refi_y<<"]!";
-				return NULL;
+				
 			}
 		}
 		for(int i=0; i<refi.size();i++){
@@ -487,11 +487,11 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 //shared_ptr<IrManasVar> IrManas::create_mem_var(string name, DistrType distr, vector<vector<int>> refi, vector<vector<int>> value){
 //	if(_variables.find(name)!=_variables.end()){
 //		LOG(ERROR) << "variable " << name << " has already existed!";
-//		return NULL;
+//		
 //	}
 //	if(value.size() <=0){
 //		LOG(ERROR) << "variable " << name << " doesn't have any element!";
-//		return NULL;
+//		
 //	}
 //	shared_ptr<IrManasVar> p = make_shared<IrManasVar>();
 //	p->name = name;
@@ -516,7 +516,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 //		}
 //		if(total_empty_slot<value.size()){
 //			LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be fully distributed to "<<refi.size()<<" register files!";
-//			return NULL;
+//			
 //		}
 //		
 //		int element_count = value.size();
@@ -544,7 +544,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 //	}else{
 //		if(value.size()%refi.size()!=0){
 //			LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to "<<refi.size()<<" register files!";
-//			return NULL;
+//			
 //		}
 //		int part = value.size()/refi.size();
 //		for(int i=0; i<refi.size();i++){
@@ -552,7 +552,7 @@ shared_ptr<IrManasVar> IrManas::create_var(string name, DistrType distr, vector<
 //			int curr_refi_y = refi[i][1];
 //			if(_refi_counter[curr_refi_x][curr_refi_y]+part>=_refi_total_entry){
 //				LOG(ERROR) << "variable " << name << " with "<<value.size()<<" elements can't be evenly distributed to register file ["<<curr_refi_x<<","<<curr_refi_y<<"]!";
-//				return NULL;
+//				
 //			}
 //		}
 //		for(int i=0; i<refi.size();i++){

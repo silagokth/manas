@@ -470,7 +470,8 @@ parse_error:
 %%
 
 static void yyerror(const char* message){
-	LOG(FATAL) << "Error near line " << yylineno-1 << " : "<< endl << message;
+	string msg(message);
+	LOG(FATAL) << "Error near line " << yylineno-1 << " : " << msg;
 }
 	
 

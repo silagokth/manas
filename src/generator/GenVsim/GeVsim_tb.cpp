@@ -117,7 +117,7 @@ void GeVsim::gen_tb(){
 			string sc;
 			to_string(r, sr);
 			to_string(c, sc);
-			s+="( " + to_string(instr_no) + ", \"" + sr + "\", \"" + sc + "\")";
+			s+="( " + to_string((long long int)instr_no) + ", \"" + sr + "\", \"" + sc + "\")";
 			if(i!=(_row-1) || j!=(_col-1)){
 				s+= ",";
 			}else{
@@ -302,55 +302,55 @@ void GeVsim::gen_tb(){
 		for(int j=0; j<_col; j++){
 			if (instructions[i][j].size()>0){
 				w.write_line("-- -----------------------------------------------------");
-				w.write_line("-- Sequencer<"+to_string(i)+", "+to_string(j)+">--------------------------------------");
+				w.write_line("-- Sequencer<"+to_string((long long int)i)+", "+to_string((long long int)j)+">--------------------------------------");
 				w.write_line("-- -----------------------------------------------------");
 				for(int k=0; k<instructions[i][j].size(); k++){
 					string str="";
 					if(instructions[i][j][k]->instr_type == INSTR_DPU){
 						shared_ptr<IrManasDpu> ins = static_pointer_cast<IrManasDpu>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= DPU("+to_string(ins->dpu_mode)+", "+to_string(ins->dpu_saturation)+", "+to_string(ins->dpu_out1)+", "+to_string(ins->dpu_out2)+", "+to_string(ins->dpu_acc_clear_rst)+", "+to_string(ins->dpu_acc_clear_sd)+", "+to_string(ins->dpu_acc_clear)+", "+to_string(ins->process_inout)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= DPU("+to_string((long long int)(ins->dpu_mode))+", "+to_string((long long int)(ins->dpu_saturation))+", "+to_string((long long int)(ins->dpu_out1))+", "+to_string((long long int)(ins->dpu_out2))+", "+to_string((long long int)(ins->dpu_acc_clear_rst))+", "+to_string((long long int)(ins->dpu_acc_clear_sd))+", "+to_string((long long int)(ins->dpu_acc_clear))+", "+to_string((long long int)(ins->process_inout))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_REFI1){
 						shared_ptr<IrManasRefi1> ins = static_pointer_cast<IrManasRefi1>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= REFI_1("+to_string(ins->reg_file_port)+", "+to_string(ins->subseq_instrs)+", "+to_string(ins->start_addrs_sd)+", "+to_string(ins->start_addrs)+", "+to_string(ins->no_of_addrs_sd)+", "+to_string(ins->no_of_addrs)+", "+to_string(ins->initial_delay_sd)+", "+to_string(ins->initial_delay)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= REFI_1("+to_string((long long int)(ins->reg_file_port))+", "+to_string((long long int)(ins->subseq_instrs))+", "+to_string((long long int)(ins->start_addrs_sd))+", "+to_string((long long int)(ins->start_addrs))+", "+to_string((long long int)(ins->no_of_addrs_sd))+", "+to_string((long long int)(ins->no_of_addrs))+", "+to_string((long long int)(ins->initial_delay_sd))+", "+to_string((long long int)(ins->initial_delay))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_REFI2){
 						shared_ptr<IrManasRefi2> ins = static_pointer_cast<IrManasRefi2>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= REFI_2("+to_string(ins->step_val_sd)+", "+to_string(ins->step_val)+", "+to_string(ins->step_val_sign)+", "+to_string(ins->refi_middle_delay_sd)+", "+to_string(ins->refi_middle_delay)+", "+to_string(ins->no_of_reps_sd)+", "+to_string(ins->no_of_reps)+", "+to_string(ins->rpt_step_value)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= REFI_2("+to_string((long long int)(ins->step_val_sd))+", "+to_string((long long int)(ins->step_val))+", "+to_string((long long int)(ins->step_val_sign))+", "+to_string((long long int)(ins->refi_middle_delay_sd))+", "+to_string((long long int)(ins->refi_middle_delay))+", "+to_string((long long int)(ins->no_of_reps_sd))+", "+to_string((long long int)(ins->no_of_reps))+", "+to_string((long long int)(ins->rpt_step_value))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_REFI3){
 						shared_ptr<IrManasRefi3> ins = static_pointer_cast<IrManasRefi3>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= REFI_3("+to_string(ins->rpt_delay_sd)+", "+to_string(ins->rpt_delay)+", "+to_string(ins->mode)+", "+to_string(ins->outp_cntrl)+", "+to_string(ins->fft_state)+", "+to_string(ins->refi_middle_delay_ext)+", "+to_string(ins->no_of_rpt_ext)+", "+to_string(ins->rpt_step_value_ext)+", "+to_string(ins->fft_end_stage)+", "+to_string(ins->dimarch_mode)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= REFI_3("+to_string((long long int)(ins->rpt_delay_sd))+", "+to_string((long long int)(ins->rpt_delay))+", "+to_string((long long int)(ins->mode))+", "+to_string((long long int)(ins->outp_cntrl))+", "+to_string((long long int)(ins->fft_state))+", "+to_string((long long int)(ins->refi_middle_delay_ext))+", "+to_string((long long int)(ins->no_of_rpt_ext))+", "+to_string((long long int)(ins->rpt_step_value_ext))+", "+to_string((long long int)(ins->fft_end_stage))+", "+to_string((long long int)(ins->dimarch_mode))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_DELAY){
 						shared_ptr<IrManasDelay> ins = static_pointer_cast<IrManasDelay>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= DELAY("+to_string(ins->del_cycles_sd)+", "+to_string(ins->del_cycles)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= DELAY("+to_string((long long int)(ins->del_cycles_sd))+", "+to_string((long long int)(ins->del_cycles))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_RACCU){
 						shared_ptr<IrManasRaccu> ins = static_pointer_cast<IrManasRaccu>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= RACCU("+to_string(ins->raccu_mode)+", "+to_string(ins->raccu_op1_sd)+", "+to_string(ins->raccu_op1)+", "+to_string(ins->raccu_op2_sd)+", "+to_string(ins->raccu_op2)+", "+to_string(ins->raccu_result_addrs)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= RACCU("+to_string((long long int)(ins->raccu_mode))+", "+to_string((long long int)(ins->raccu_op1_sd))+", "+to_string((long long int)(ins->raccu_op1))+", "+to_string((long long int)(ins->raccu_op2_sd))+", "+to_string((long long int)(ins->raccu_op2))+", "+to_string((long long int)(ins->raccu_result_addrs))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_LOOPHEADER){
 						shared_ptr<IrManasLoopheader> ins = static_pointer_cast<IrManasLoopheader>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= LOOP_HEADER("+to_string(ins->index_raccu_addr)+", "+to_string(ins->index_start)+", "+to_string(ins->iter_no_sd)+", "+to_string(ins->iter_no)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= LOOP_HEADER("+to_string((long long int)(ins->index_raccu_addr))+", "+to_string((long long int)(ins->index_start))+", "+to_string((long long int)(ins->iter_no_sd))+", "+to_string((long long int)(ins->iter_no))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_LOOPTAIL){
 						shared_ptr<IrManasLooptail> ins = static_pointer_cast<IrManasLooptail>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= LOOP_TAIL("+to_string(ins->index_step)+", "+to_string(ins->pc_togo)+", "+to_string(ins->index_raccu_addr)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= LOOP_TAIL("+to_string((long long int)(ins->index_step))+", "+to_string((long long int)(ins->pc_togo))+", "+to_string((long long int)(ins->index_raccu_addr))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_SWB){
 						shared_ptr<IrManasSwb> ins = static_pointer_cast<IrManasSwb>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= SWB("+to_string(ins->from_block)+", "+to_string(ins->from_address)+", "+to_string(ins->from_port)+", "+to_string(ins->to_block)+", "+to_string(ins->to_address)+", "+to_string(ins->to_port)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= SWB("+to_string((long long int)(ins->from_block))+", "+to_string((long long int)(ins->from_address))+", "+to_string((long long int)(ins->from_port))+", "+to_string((long long int)(ins->to_block))+", "+to_string((long long int)(ins->to_address))+", "+to_string((long long int)(ins->to_port))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_BRANCH){
 						shared_ptr<IrManasBranch> ins = static_pointer_cast<IrManasBranch>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= BRANCH("+to_string(ins->branch_mode)+", "+to_string(ins->branch_false_address)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= BRANCH("+to_string((long long int)(ins->branch_mode))+", "+to_string((long long int)(ins->branch_false_address))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_JUMP){
 						shared_ptr<IrManasJump> ins = static_pointer_cast<IrManasJump>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= JUMP("+to_string(ins->true_address)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= JUMP("+to_string((long long int)(ins->true_address))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_SRAMREAD){
 						shared_ptr<IrManasSramread> ins = static_pointer_cast<IrManasSramread>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= SRAM_READ("+to_string(ins->mode)+", "+to_string(ins->initial_address)+", "+to_string(ins->initial_delay)+", "+to_string(ins->loop1_iterations)+", "+to_string(ins->loop1_increment)+", "+to_string(ins->loop1_delay)+", "+to_string(ins->loop2_iterations)+", "+to_string(ins->loop2_increment)+", "+to_string(ins->loop2_delay)+", "+to_string(ins->sram_initial_address_sd)+", "+to_string(ins->sram_loop1_iteration_sd)+", "+to_string(ins->sram_loop2_iteration_sd)+", "+to_string(ins->sram_initial_delay_sd)+", "+to_string(ins->sram_loop1_delay_sd)+", "+to_string(ins->sram_loop2_delay_sd)+", "+to_string(ins->sram_loop1_increment_sd)+", "+to_string(ins->sram_loop2_increment_sd)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= SRAM_READ("+to_string((long long int)(ins->mode))+", "+to_string((long long int)(ins->initial_address))+", "+to_string((long long int)(ins->initial_delay))+", "+to_string((long long int)(ins->loop1_iterations))+", "+to_string((long long int)(ins->loop1_increment))+", "+to_string((long long int)(ins->loop1_delay))+", "+to_string((long long int)(ins->loop2_iterations))+", "+to_string((long long int)(ins->loop2_increment))+", "+to_string((long long int)(ins->loop2_delay))+", "+to_string((long long int)(ins->sram_initial_address_sd))+", "+to_string((long long int)(ins->sram_loop1_iteration_sd))+", "+to_string((long long int)(ins->sram_loop2_iteration_sd))+", "+to_string((long long int)(ins->sram_initial_delay_sd))+", "+to_string((long long int)(ins->sram_loop1_delay_sd))+", "+to_string((long long int)(ins->sram_loop2_delay_sd))+", "+to_string((long long int)(ins->sram_loop1_increment_sd))+", "+to_string((long long int)(ins->sram_loop2_increment_sd))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_SRAMWRITE){
 						shared_ptr<IrManasSramwrite> ins = static_pointer_cast<IrManasSramwrite>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= SRAM_WRITE("+to_string(ins->mode)+", "+to_string(ins->initial_address)+", "+to_string(ins->initial_delay)+", "+to_string(ins->loop1_iterations)+", "+to_string(ins->loop1_increment)+", "+to_string(ins->loop1_delay)+", "+to_string(ins->loop2_iterations)+", "+to_string(ins->loop2_increment)+", "+to_string(ins->loop2_delay)+", "+to_string(ins->sram_initial_address_sd)+", "+to_string(ins->sram_loop1_iteration_sd)+", "+to_string(ins->sram_loop2_iteration_sd)+", "+to_string(ins->sram_initial_delay_sd)+", "+to_string(ins->sram_loop1_delay_sd)+", "+to_string(ins->sram_loop2_delay_sd)+", "+to_string(ins->sram_loop1_increment_sd)+", "+to_string(ins->sram_loop2_increment_sd)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= SRAM_WRITE("+to_string((long long int)(ins->mode))+", "+to_string((long long int)(ins->initial_address))+", "+to_string((long long int)(ins->initial_delay))+", "+to_string((long long int)(ins->loop1_iterations))+", "+to_string((long long int)(ins->loop1_increment))+", "+to_string((long long int)(ins->loop1_delay))+", "+to_string((long long int)(ins->loop2_iterations))+", "+to_string((long long int)(ins->loop2_increment))+", "+to_string((long long int)(ins->loop2_delay))+", "+to_string((long long int)(ins->sram_initial_address_sd))+", "+to_string((long long int)(ins->sram_loop1_iteration_sd))+", "+to_string((long long int)(ins->sram_loop2_iteration_sd))+", "+to_string((long long int)(ins->sram_initial_delay_sd))+", "+to_string((long long int)(ins->sram_loop1_delay_sd))+", "+to_string((long long int)(ins->sram_loop2_delay_sd))+", "+to_string((long long int)(ins->sram_loop1_increment_sd))+", "+to_string((long long int)(ins->sram_loop2_increment_sd))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_ROUTE){
 						shared_ptr<IrManasRoute> ins = static_pointer_cast<IrManasRoute>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= ROUTE("+to_string(ins->source_row)+", "+to_string(ins->source_col)+", "+to_string(ins->destination_row)+", "+to_string(ins->destination_col)+", "+to_string(ins->drra_sel)+", "+to_string(ins->union_flag)+", "+to_string(ins->union_port)+", "+to_string(ins->origin)+");";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= ROUTE("+to_string((long long int)(ins->source_row))+", "+to_string((long long int)(ins->source_col))+", "+to_string((long long int)(ins->destination_row))+", "+to_string((long long int)(ins->destination_col))+", "+to_string((long long int)(ins->drra_sel))+", "+to_string((long long int)(ins->union_flag))+", "+to_string((long long int)(ins->union_port))+", "+to_string((long long int)(ins->origin))+");";
 					}else if(instructions[i][j][k]->instr_type == INSTR_HALT){
 						shared_ptr<IrManasHalt> ins = static_pointer_cast<IrManasHalt>(instructions[i][j][k]);
-						str = "instruction("+to_string(instr_idx)+") <= HALT();";
+						str = "instruction("+to_string((long long int)instr_idx)+") <= HALT();";
 					}
 					instr_idx++;
 					w.write_line(str);
@@ -376,11 +376,11 @@ void GeVsim::gen_cfg(){
 	w.write_line("PACKAGE const_package_"+_design+" IS");
 	w.write_line("");
 	w.inc_tab();
-	w.write_line("CONSTANT instruction_no         : integer := "+to_string(_instr_no)+";");
+	w.write_line("CONSTANT instruction_no         : integer := "+to_string((long long int)_instr_no)+";");
 	w.write_line("CONSTANT mem_load_cycles        : integer := 0;");
-	w.write_line("CONSTANT reg_load_cycles        : integer := "+to_string(_reg_load_cycles)+";");
+	w.write_line("CONSTANT reg_load_cycles        : integer := "+to_string((long long int)_reg_load_cycles)+";");
 	w.write_line("CONSTANT execution_start_cycle  : integer := instruction_no + reg_load_cycles + mem_load_cycles + 1;");
-	w.write_line("CONSTANT total_execution_cycle  : integer := "+to_string(_max_scheduled_cycle+_instr_no+0+_reg_load_cycles)+";");
+	w.write_line("CONSTANT total_execution_cycle  : integer := "+to_string((long long int)_max_scheduled_cycle+_instr_no+0+_reg_load_cycles)+";");
 	w.write_line("CONSTANT period                 : time    := 10 NS;");
 	w.write_line("CONSTANT half_period            : time    := 5 NS;");
 	w.dec_tab();
@@ -470,7 +470,7 @@ void GeVsim::gen_profiler(){
 			str += ", ";
 		}
 		shared_ptr<IrManasVar> var = it->second;
-		str+="\""+var->name+"\" : "+to_string(var->refi[0][2]);
+		str+="\""+var->name+"\" : "+to_string((long long int)var->refi[0][2]);
 		flag_first=false;
 	}
 	str+="};";
@@ -486,7 +486,7 @@ void GeVsim::gen_profiler(){
 			if(!flag_first){
 				str += ", ";
 			}
-			str+="\""+var->name+"_"+to_string(var->refi[i][0])+to_string(var->refi[i][1])+"\" : "+to_string(offset);
+			str+="\""+var->name+"_"+to_string((long long int)var->refi[i][0])+to_string((long long int)var->refi[i][1])+"\" : "+to_string((long long int)offset);
 			offset += var->refi[i][3];
 			flag_first=false;
 		}
@@ -1163,7 +1163,7 @@ void GeVsim::gen_script(){
 	w.write_line("run 0 ns;");
 	w.write_line("set StdArithNoWarnings 0");
 	w.write_line("set NumericStdNoWarnings 0");
-	w.write_line("run "+to_string(_max_scheduled_cycle+_instr_no+0+_reg_load_cycles)+"ns");
+	w.write_line("run "+to_string((long long int)_max_scheduled_cycle+_instr_no+0+_reg_load_cycles)+"ns");
 	w.write_line("quit");
 }
 

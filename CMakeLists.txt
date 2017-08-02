@@ -31,7 +31,7 @@ file(GLOB SOURCES_VESYLA "src/vesyla/*.cpp")
 file(GLOB SOURCES_FLEX_MANAS "src/parser/ParManas/*.l")
 file(GLOB SOURCES_BISON_MANAS "src/parser/ParManas/*.y")
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -w -pedantic -lpthread -g -O2 -DBOOST_LOG_DYN_LINK")
+set(CMAKE_CXX_FLAGS "-std=c++0x -w -pedantic -lpthread -g -O2 -DBOOST_LOG_DYN_LINK")
 set(PROJECT_LINK_LIBS)
 
 BISON_TARGET(ParManasParser ${SOURCES_BISON_MANAS} ${CMAKE_CURRENT_BINARY_DIR}/ParManas_parser.cpp)

@@ -7,6 +7,8 @@
 
 using namespace vesyla::ir;
 
+extern int yyparse ();
+
 namespace vesyla{
 namespace parser{
 

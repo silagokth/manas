@@ -8,7 +8,7 @@ using namespace boost::program_options;
 using namespace vesyla;
 
 
-INITIALIZE_EASYLOGGINGPP
+_INITIALIZE_EASYLOGGINGPP
 
 int main(int argc, char* argv[]){
 
@@ -69,6 +69,7 @@ int main(int argc, char* argv[]){
 	}
 	if(hw_reg_file_depth<=0||hw_rows<=0||hw_cols<=0){
 		LOG(FATAL) << "Fabric size is wrong!";
+		exit(-1);
 	} 
 	
 	if(!boost::filesystem::exists(path_output)){
@@ -83,8 +84,8 @@ int main(int argc, char* argv[]){
 	ir0.dump();
 	
 	boost::filesystem::path p(file_list[0]);
-	string design = p.stem().string();
-	generator::GeVsim g(design, &ir0, boost::filesystem::absolute(path_fabric).string(), boost::filesystem::absolute(path_output).string());
+	string design = p.stem();
+	generator::GeVsim g(design, &ir0, boost::filesystem::current_path().string()+"/"+path_fabric, boost::filesystem::current_path().string()+"/"+path_output);
 	g.gen_tb();
 	g.gen_cfg();
 	g.gen_profiler();

@@ -1,6 +1,6 @@
 %{
 
-#include <boost/log/trivial.hpp>
+#include "util/Common.hpp"
 #include <ParManas_parser.hpp>
 
 %}
