@@ -85,7 +85,16 @@ int main(int argc, char* argv[]){
 	
 	boost::filesystem::path p(file_list[0]);
 	string design = p.stem();
-	generator::GeVsim g(design, &ir0, boost::filesystem::current_path().string()+"/"+path_fabric, boost::filesystem::current_path().string()+"/"+path_output);
+	boost::filesystem::path full_path_fabric(path_fabric);
+	if(!full_path_fabric.has_root_directory()){
+		full_path_fabric = boost::filesystem::current_path() / full_path_fabric;
+	}
+	boost::filesystem::path full_path_output(path_output);
+	if(!full_path_output.has_root_directory()){
+		full_path_output = boost::filesystem::current_path() / full_path_output;
+	}
+	
+	generator::GeVsim g(design, &ir0, full_path_fabric.string(), full_path_output.string());
 	g.gen_tb();
 	g.gen_cfg();
 	g.gen_profiler();
