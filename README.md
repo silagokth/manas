@@ -4,6 +4,34 @@ A SiLago assembler
 
 Visit [SiLago documentation](https://herenvarno.github.io/SiLagoDoc/Compiler/Manas).
 
+## Compilation
+
+To compile Manas, you need compilation tool chain: g++, cmake and make.
+
+First, make a directory called "build" under the Manas folder.
+
+````
+mkdir build
+````
+
+Then enter the directory:
+
+````
+cd build
+````
+
+Use cmake to generate makefiles
+
+````
+cmake ..
+````
+
+And finally, compile it
+
+````
+make
+````
+
 ## Input and Output
 
 The input of Manas is a caseless text file which contains the defination of variables and
